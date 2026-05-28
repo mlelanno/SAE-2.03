@@ -1,0 +1,20 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block title %}Ajouter un Auteur{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Enregistrer un nouvel Auteur ou Studio</h2>
+
+<form method="POST" class="needs-validation">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">Sauvegarder l'Auteur</button>
+        <a href="{% url 'liste_auteurs' %}" class="btn btn-secondary">Annuler</a>
+    </div>
+</form>
+{% endblock %}

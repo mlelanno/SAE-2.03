@@ -1,0 +1,18 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block title %}Modifier un Avis{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Modifier la note de {{ commentaire_obj.joueur }} sur {{ commentaire_obj.jeu.titre }}</h2>
+
+<form method="POST" class="needs-validation">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-warning">Mettre l'avis à jour</button>
+        <a href="{% url 'liste_commentaires' %}" class="btn btn-secondary">Annuler</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block title %}Supprimer un Jeu{% endblock %}
+
+{% block content %}
+<div class="alert alert-warning border-danger" role="alert">
+    <h4 class="alert-heading text-danger">Retrait du Catalogue</h4>
+    <p>Êtes-vous certain de vouloir supprimer définitivement le jeu : <strong>{{ jeu.titre }}</strong> ?</p>
+    <hr>
+    <p class="mb-0 text-muted">⚠️ Cette action est destructive mais ne supprimera ni l'auteur ni la catégorie qui lui sont associés.</p>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Retirer du catalogue</button>
+    <a href="{% url 'liste_jeux' %}" class="btn btn-secondary">Annuler et revenir en arrière</a>
+</form>
+{% endblock %}

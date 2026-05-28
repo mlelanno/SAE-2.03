@@ -1,0 +1,18 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block title %}Publier un Avis{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Rédiger un nouvel Avis de Jeu</h2>
+
+<form method="POST" class="needs-validation">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">Enregistrer l'Avis</button>
+        <a href="{% url 'liste_commentaires' %}" class="btn btn-secondary">Annuler</a>
+    </div>
+</form>
+{% endblock %}

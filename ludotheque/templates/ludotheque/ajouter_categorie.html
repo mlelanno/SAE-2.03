@@ -1,0 +1,18 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block title %}Ajouter une Catégorie{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Créer une nouvelle Catégorie</h2>
+
+<form method="POST" class="needs-validation">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">Sauvegarder la Catégorie</button>
+        <a href="{% url 'liste_categories' %}" class="btn btn-secondary">Annuler</a>
+    </div>
+</form>
+{% endblock %}

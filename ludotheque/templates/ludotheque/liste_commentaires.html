@@ -1,0 +1,48 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block title %}Liste des Commentaires{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Espace Avis et Commentaires</h2>
+    <a href="{% url 'ajouter_commentaire' %}" class="btn btn-primary">Publier un Avis</a>
+</div>
+
+<table class="table table-striped table-hover border">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Jeu Concerné</th>
+            <th>Auteur de l'Avis</th>
+            <th>Note Attribuée</th>
+            <th>Commentaire</th>
+            <th>Date de Publication</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for commentaire in commentaires %}
+        <tr>
+            <td>{{ commentaire.id }}</td>
+            <td><strong>{{ commentaire.jeu.titre }}</strong></td>
+            <td>{{ commentaire.joueur }}</td>
+            <td>
+                <span class="badge {% if commentaire.note >= 15 %}bg-success{% elif commentaire.note >= 10 %}bg-warning text-dark{% else %}bg-danger{% endif %} py-2 px-3">
+                    {{ commentaire.note }} / 20
+                </span>
+            </td>
+            <td><p class="mb-0 small text-muted text-wrap" style="max-width: 300px;">{{ commentaire.commentaire }}</p></td>
+            <td>{{ commentaire.date|date:"d/m/Y" }}</td>
+            <td class="text-center">
+                <a href="{% url 'modifier_commentaire' commentaire.id %}" class="btn btn-warning btn-sm">Modifier</a>
+                <a href="{% url 'supprimer_commentaire' commentaire.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="text-center text-muted">Aucun commentaire publié pour le moment.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

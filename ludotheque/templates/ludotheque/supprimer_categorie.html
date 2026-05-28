@@ -1,0 +1,18 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block title %}Supprimer une Catégorie{% endblock %}
+
+{% block content %}
+<div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">Attention - Action Irréversible !</h4>
+    <p>Êtes-vous sûr de vouloir détruire la catégorie <strong>{{ categorie.nom }}</strong> ?</p>
+    <hr>
+    <p class="mb-0 text-muted">⚠️ Tous les jeux classés sous cette catégorie seront automatiquement supprimés en cascade de la base de données.</p>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Confirmer la suppression définitive</button>
+    <a href="{% url 'liste_categories' %}" class="btn btn-secondary">Annuler et revenir en arrière</a>
+</form>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block title %}Supprimer un Auteur{% endblock %}
+
+{% block content %}
+<div class="alert alert-danger role="alert">
+    <h4 class="alert-heading">Attention - Action Irréversible !</h4>
+    <p>Êtes-vous absolument sûr de vouloir supprimer l'auteur <strong>{{ auteur.prenom }} {{ auteur.nom }}</strong> ?</p>
+    <hr>
+    <p class="mb-0 text-muted">⚠️ Cette action supprimera également tous les jeux associés à cet auteur en cascade.</p>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Confirmer la suppression définitive</button>
+    <a href="{% url 'liste_auteurs' %}" class="btn btn-secondary">Annuler et revenir en arrière</a>
+</form>
+{% endblock %}

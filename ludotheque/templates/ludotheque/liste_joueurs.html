@@ -1,0 +1,54 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block title %}Liste des Joueurs{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestion des Membres / Joueurs</h2>
+    <a href="{% url 'ajouter_joueur' %}" class="btn btn-primary">Inscrire un Joueur</a>
+</div>
+
+<table class="table table-striped table-hover border">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nom Complet</th>
+            <th>Email</th>
+            <th>Statut Statutaire</th>
+            <th>Jeux Sélectionnés</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for joueur in joueurs %}
+        <tr>
+            <td>{{ joueur.id }}</td>
+            <td><strong>{{ joueur.prenom }} {{ joueur.nom }}</strong></td>
+            <td>{{ joueur.mail }}</td>
+            <td>
+                {% if joueur.type_joueur == 'pro' %}
+                <span class="badge bg-success">Professionnel</span>
+                {% else %}
+                <span class="badge bg-info text-dark">Particulier</span>
+                {% endif %}
+            </td>
+            <td>
+                {% for jeu in joueur.liste_jeux.all %}
+                <span class="badge bg-secondary mb-1">{{ jeu.titre }}</span>
+                {% empty %}
+                <span class="text-muted text-decoration-italic small">Aucun jeu enregistré</span>
+                {% endfor %}
+            </td>
+            <td class="text-center">
+                <a href="{% url 'modifier_joueur' joueur.id %}" class="btn btn-warning btn-sm">Modifier</a>
+                <a href="{% url 'supprimer_joueur' joueur.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center text-muted">Aucun joueur inscrit dans la base pour le moment.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

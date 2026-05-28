@@ -1,0 +1,18 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block title %}Supprimer un Avis{% endblock %}
+
+{% block content %}
+<div class="alert alert-warning border-danger" role="alert">
+    <h4 class="alert-heading text-danger">Modération - Suppression d'Avis</h4>
+    <p>Êtes-vous certain de vouloir purger définitivement le commentaire de <strong>{{ commentaire_obj.joueur }}</strong> sur le jeu <strong>{{ commentaire_obj.jeu.titre }}</strong> ?</p>
+    <hr>
+    <p class="mb-0 text-muted">⚠️ Cette action retirera la note du système de calcul de moyenne générale.</p>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Supprimer définitivement du système</button>
+    <a href="{% url 'liste_commentaires' %}" class="btn btn-secondary">Annuler et revenir en arrière</a>
+</form>
+{% endblock %}

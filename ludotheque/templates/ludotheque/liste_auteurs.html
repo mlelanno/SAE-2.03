@@ -1,0 +1,40 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block title %}Liste des Auteurs{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestion des Auteurs / Studios</h2>
+    <a href="{% url 'ajouter_auteur' %}" class="btn btn-primary">Ajouter un Auteur</a>
+</div>
+
+<table class="table table-striped table-hover border">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nom / Studio</th>
+            <th>Prénom</th>
+            <th>Âge</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for auteur in auteurs %}
+        <tr>
+            <td>{{ auteur.id }}</td>
+            <td><strong>{{ auteur.nom }}</strong></td>
+            <td>{{ auteur.prenom|default:"-" }}</td>
+            <td>{{ auteur.age|default:"-" }}</td>
+            <td class="text-center">
+                <a href="{% url 'modifier_auteur' auteur.id %}" class="btn btn-warning btn-sm">Modifier</a>
+                <a href="{% url 'supprimer_auteur' auteur.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center text-muted">Aucun auteur enregistré pour le moment.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
