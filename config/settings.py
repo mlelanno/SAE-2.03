@@ -2,23 +2,19 @@ import os
 import environ
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Base directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Initialize environment schema router
 env = environ.Env(
     DEBUG=(bool, False)
 )
-# Read the local environment variables from the hidden vault
+# Read the hidden .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# Production Cryptographic Key
-SECRET_KEY = env('SECRET_KEY', default='django-insecure-temporary-fallback-key')
-
-# Master Production Switch (Evaluates to False in Prod via .env)
+# Cryptographic Keys & Rules
+SECRET_KEY = env('SECRET_KEY', default='django-insecure-j+m8@6%vjx8^uxbhi0mdz%q6-^e@%vi!j3&jtnf%!v@$u9)nsv')
 DEBUG = env('DEBUG')
-
-# Whitelist your Virtual Machine IP address and loopbacks
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['10.128.233.97', '127.0.0.1', 'localhost'])
 
 # Application definition
@@ -36,10 +32,10 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -61,8 +57,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database Engine Routing
-# Automatically routes to MariaDB using your .env parameters
+# Database Dynamic Routing (Points directly to MariaDB via .env variables)
 DATABASES = {
     'default': env.db('DATABASE_URL', default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')
 }
@@ -87,6 +82,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Production Static Asset Settings
+# Assets Architecture
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
