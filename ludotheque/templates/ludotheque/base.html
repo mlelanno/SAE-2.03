@@ -1,33 +1,82 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Ludothèque{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Ludotheque SAE</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #222222;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #555555;
+        }
+        h1 {
+            color: #ff9900;
+            margin: 0;
+        }
+        .nav-links {
+            margin-top: 10px;
+        }
+        .nav-links a {
+            color: #66b3ff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        .nav-links a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+        .main-container {
+            width: 85%;
+            margin: 30px auto;
+            background-color: #1e1e1e;
+            padding: 25px;
+            border: 1px solid #444444;
+        }
+        .alert-box {
+            background-color: #003300;
+            color: #00ff00;
+            padding: 15px;
+            border: 2px solid #00ff00;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">SAÉ Ludothèque</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_auteurs' %}">Auteurs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_categories' %}">Catégories</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_jeux' %}">Jeux</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_joueurs' %}">Joueurs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_commentaires' %}">Commentaires</a></li>
-                </ul>
-            </div>
+    <div class="header">
+        <h1>Gestion de la Ludotheque</h1>
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Accueil</a>
+            <a href="{% url 'liste_jeux' %}">Catalogue des jeux</a>
+            <a href="{% url 'ajouter_jeu' %}">+ Ajouter un jeu</a>
         </div>
-    </nav>
-
-    <div class="container bg-white p-4 rounded shadow-sm">
-        {% block content %}
-        {% endblock %}
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="main-container">
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert-box">
+                    Message systeme : {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+        
+    </div>
+
 </body>
 </html>
