@@ -8,6 +8,14 @@ urlpatterns = [
     path('auteurs/modifier/<int:id>/', views.modifier_auteur, name='modifier_auteur'),
     path('auteurs/supprimer/<int:id>/', views.supprimer_auteur, name='supprimer_auteur'),
 
+    # THE NEW HOME ROUTE
+    path('', views.home, name='home'),
+
+    # Keep all your existing routes below this line...
+    path('jeux/', views.liste_jeux, name='liste_jeux'),
+    path('jeux/ajouter/', views.ajouter_jeu, name='ajouter_jeu'),
+    # ... (rest of your routes)
+
     # Routes pour la gestion des Catégories
     path('categories/', views.liste_categories, name='liste_categories'),
     path('categories/ajouter/', views.ajouter_categorie, name='ajouter_categorie'),
@@ -31,4 +39,6 @@ urlpatterns = [
     path('commentaires/ajouter/', views.ajouter_commentaire, name='ajouter_commentaire'),
     path('commentaires/modifier/<int:id>/', views.modifier_commentaire, name='modifier_commentaire'),
     path('commentaires/supprimer/<int:id>/', views.supprimer_commentaire, name='supprimer_commentaire'),
+
+    path('jeux/<int:id>/details/', views.detail_jeu, name='detail_jeu'),
 ]

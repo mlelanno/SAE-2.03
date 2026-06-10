@@ -1,0 +1,34 @@
+{% extends 'ludotheque/base.html' %}
+
+{% block content %}
+<div style="text-align: center; padding: 40px; border: 2px solid #555; background-color: #222; margin-bottom: 30px;">
+    <h2 style="color: #00ffcc; font-size: 32px; margin-top: 0;">Bienvenue sur Ludotheque Manager</h2>
+    <p style="font-size: 18px; color: #ccc;">Panneau de controle centralise pour la gestion de la base de donnees.</p>
+</div>
+
+<h3 style="color: #ff9900; border-bottom: 1px solid #ff9900; padding-bottom: 5px;">Statistiques du systeme</h3>
+
+<div style="margin-top: 20px; text-align: center;">
+    
+    <div style="display: inline-block; width: 20%; min-width: 150px; background-color: #333; border: 3px solid #66b3ff; padding: 15px; margin: 10px;">
+        <h4 style="color: #ccc; margin: 0;">Total Jeux</h4>
+        <h1 style="color: #66b3ff; margin: 10px 0; font-size: 40px;">{{ stats.total_jeux }}</h1>
+    </div>
+
+    <div style="display: inline-block; width: 20%; min-width: 150px; background-color: #333; border: 3px solid #4CAF50; padding: 15px; margin: 10px;">
+        <h4 style="color: #ccc; margin: 0;">Categories</h4>
+        <h1 style="color: #4CAF50; margin: 10px 0; font-size: 40px;">{{ stats.total_categories }}</h1>
+    </div>
+
+    <div style="display: inline-block; width: 20%; min-width: 150px; background-color: #333; border: 3px solid #ffcc00; padding: 15px; margin: 10px;">
+        <h4 style="color: #ccc; margin: 0;">Auteurs</h4>
+        <h1 style="color: #ffcc00; margin: 10px 0; font-size: 40px;">{{ stats.total_auteurs }}</h1>
+    </div>
+
+    <div style="display: inline-block; width: 20%; min-width: 150px; background-color: #333; border: 3px solid #ff3333; padding: 15px; margin: 10px;">
+        <h4 style="color: #ccc; margin: 0;">Joueurs</h4>
+        <h1 style="color: #ff3333; margin: 10px 0; font-size: 40px;">{{ stats.total_joueurs }}</h1>
+    </div>
+
+</div>
+{% endblock %}

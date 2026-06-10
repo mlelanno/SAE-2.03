@@ -21,6 +21,10 @@ class Jeu(models.Model):
     titre = models.CharField(max_length=200)
     annee_sortie = models.IntegerField()
     editeur = models.CharField(max_length=100)
+    
+    # THE NEW VISUAL ASSET FIELD
+    image_url = models.URLField(max_length=500, blank=True, null=True)
+    
     auteur = models.ForeignKey(Auteur, on_delete=models.CASCADE)
     categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE)
 
