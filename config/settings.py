@@ -9,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(
     DEBUG=(bool, False)
 )
+environ.Env.read_env(str(BASE_DIR / '.env'))
 # Read the hidden .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
@@ -59,9 +60,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database Dynamic Routing (Points directly to MariaDB via .env variables)
 DATABASES = {
-    'default': env.db('DATABASE_URL', default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'assignment_ludo',
+        'USER': 'ludo_admin',
+        'PASSWORD': 'LudoSAE2026',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
 }
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -85,3 +92,7 @@ USE_TZ = True
 # Assets Architecture
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+CSRF_TRUSTED_ORIGINS = ['http://10.128.207.224', 'http://10.128.208.51']
