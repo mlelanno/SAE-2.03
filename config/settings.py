@@ -59,16 +59,25 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database Dynamic Routing (Points directly to MariaDB via .env variables)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'assignment_ludo',
-        'USER': 'ludo_admin',
-        'PASSWORD': 'LudoSAE2026',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+if os.getenv('DEBUG') == 'True':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    # Ici, garde ton ancienne configuration MySQL pour la production
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'assignment_ludo',
+            'USER': 'ludo_admin',
+            'PASSWORD': 'LudoSAE2026',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+        }
+    }
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

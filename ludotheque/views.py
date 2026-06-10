@@ -242,3 +242,55 @@ def supprimer_commentaire(request, id):
         messages.success(request, "Le commentaire a été supprimé.")
         return redirect('liste_commentaires')
     return render(request, 'ludotheque/supprimer_commentaire.html', {'commentaire_obj': commentaire_obj})
+
+def import_csv(request):
+    if request.method == "POST":
+        csv_file = request.FILES.get('file')
+        
+        if not csv_file or not csv_file.name.endswith('.csv'):
+            messages.error(request, "Le fichier n'est pas au format CSV.")
+            return redirect('liste_jeux')
+        
+        try:
+            file_data = csv_file.read().decode("utf-8").splitlines()
+            reader = csv.DictReader(file_data, delimiter=';')
+            
+            compteur = 0
+            for row in reader:
+                titre = row.get('titre', '').strip()
+                annee_sortie = row.get('annee_sortie', 2000)
+                editeur = row.get('editeur', 'Inconnu').strip()
+                nom_auteur = row.get('auteur', 'Anonyme').strip()
+                nom_categorie = row.get('categorie', 'Non classé').strip()
+                
+                if not titre:
+                    continue
+                
+                categorie_obj, _ = Categorie.objects.get_or_create(
+                    nom=nom_categorie,
+                    defaults={'descriptif': 'Catégorie générée par importation CSV'}
+                )
+                
+                auteur_obj, _ = Auteur.objects.get_or_create(
+                    nom=nom_auteur,
+                    defaults={'prenom': ''}
+                )
+                
+                _, created = Jeu.objects.get_or_create(
+                    titre=titre,
+                    defaults={
+                        'annee_sortie': int(annee_sortie) if str(annee_sortie).isdigit() else 2000,
+                        'editeur': editeur,
+                        'auteur': auteur_obj,
+                        'categorie': categorie_obj
+                    }
+                )
+                if created:
+                    compteur += 1
+                    
+            messages.success(request, f"Importation réussie : {compteur} nouveaux jeux ajoutés au catalogue !")
+            
+        except Exception as e:
+            messages.error(request, f"Erreur critique lors de la lecture du fichier : {e}")
+            
+    return redirect('liste_jeux')
