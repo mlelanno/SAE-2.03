@@ -54,12 +54,22 @@
 </head>
 <body>
 
-    <div class="header">
+    <div class="header" style="position: relative;">
         <h1>Gestion de la Ludotheque</h1>
         <div class="nav-links">
             <a href="{% url 'home' %}">Accueil</a>
             <a href="{% url 'liste_jeux' %}">Catalogue des jeux</a>
             <a href="{% url 'ajouter_jeu' %}">+ Ajouter un jeu</a>
+        </div>
+
+        <div style="position: absolute; top: 22px; right: 25px;">
+            <form action="{% url 'import_csv' %}" method="POST" enctype="multipart/form-data" style="margin: 0;">
+                {% csrf_token %}
+                <input type="file" name="file" accept=".csv" required style="display: none;" id="csvFileInput" onchange="this.form.submit()">
+                <button type="button" onclick="document.getElementById('csvFileInput').click()" style="background-color: #28a745; color: white; padding: 8px 14px; border: 1px solid #1e7e34; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 14px;">
+                    📥 Importer CSV
+                </button>
+            </form>
         </div>
     </div>
 

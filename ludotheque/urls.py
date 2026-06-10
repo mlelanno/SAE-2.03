@@ -2,6 +2,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # LA NOUVELLE ROUTE POUR L'IMPORT CSV
+    path('import-csv/', views.import_csv, name='import_csv'),
+    # Routes pour la gestion des Auteurs
+    path('auteurs/', views.liste_auteurs, name='liste_auteurs'),
     # Routes pour la gestion des Auteurs
     path('auteurs/', views.liste_auteurs, name='liste_auteurs'),
     path('auteurs/ajouter/', views.ajouter_auteur, name='ajouter_auteur'),
