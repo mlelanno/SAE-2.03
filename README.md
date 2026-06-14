@@ -20,7 +20,7 @@ Ce repertoire contient le code source du systeme de gestion de ludotheque develo
 
 1. Clonage du repertoire distant :
 git clone https://github.com/mlelanno/SAE-2.03.git
-cd SAE-ARNAULT
+cd SAE-2.03
 
 2. Creation et activation de l'environnement virtuel :
 python -m venv venv --copies
